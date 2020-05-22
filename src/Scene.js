@@ -1,7 +1,7 @@
 // @flow
 
 import { type Vector } from "./vector";
-import { type Colour } from "./Canvas";
+import { type Colour } from "./colour";
 
 export class Sphere {
   center: Vector;
@@ -25,7 +25,7 @@ export class Sphere {
   }
 }
 
-type Scene = {
+export type Scene = {
   spheres: Array<Sphere>,
 };
 

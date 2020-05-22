@@ -1,6 +1,6 @@
 // @flow
 
-export type Colour = [number, number, number];
+import type { Colour } from "./colour";
 
 const getColorIndicesForCoord = (x, y, width) => {
   const red = y * (width * 4) + x * 4;
