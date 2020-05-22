@@ -9,10 +9,20 @@ export default class GUI {
     const gui = new dat.GUI();
     const controllers = flatMap(scene.spheres, (sphere, i) => {
       const folder = gui.addFolder(`Sphere ${i}`);
-      folder.open();
       const radiusController = folder.add(sphere, "radius", 0, 2, 0.1);
+      const positionFolder = folder.addFolder("position");
+      positionFolder.open();
+      const xController = positionFolder.add(sphere.center, "x", -5, 5, 1);
+      const yController = positionFolder.add(sphere.center, "y", -5, 5, 1);
+      const zController = positionFolder.add(sphere.center, "z", -5, 5, 1);
       const colourController = folder.addColor(sphere, "colour");
-      return [radiusController, colourController];
+      return [
+        radiusController,
+        colourController,
+        xController,
+        yController,
+        zController,
+      ];
     });
 
     controllers.forEach((controller) => {

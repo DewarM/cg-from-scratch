@@ -3,8 +3,7 @@ import range from "lodash/range";
 
 import type { Scene } from "./Scene";
 import Canvas from "./Canvas";
-import type { Vector } from "./vector";
-import { dot, subtract } from "./vector";
+import Vector, { dot, subtract } from "./Vector";
 import { WHITE } from "./colour";
 
 export default class Tracer {
@@ -22,11 +21,11 @@ export default class Tracer {
     const d = 1;
     const viewport = [1, 1];
     const [viewportW, viewportH] = viewport;
-    return [
+    return Vector.fromArray([
       (x * viewportW) / this.canvas.width,
       (y * viewportH) / this.canvas.height,
       d,
-    ];
+    ]);
   }
 
   trace() {

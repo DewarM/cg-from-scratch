@@ -1,7 +1,8 @@
 // @flow
 
-import { type Vector } from "./vector";
+import Vector from "./Vector";
 import { type Colour } from "./colour";
+import { RED } from "./colour";
 
 export class Sphere {
   center: Vector;
@@ -17,7 +18,7 @@ export class Sphere {
       center: Vector,
       radius: number,
       colour: Colour,
-    } = { center: [0, 0, 0], radius: 1, colour: [255, 0, 0] }
+    } = { center: Vector.fromArray([0, 0, 0]), radius: 1, colour: RED }
   ) {
     this.center = center;
     this.radius = radius;
