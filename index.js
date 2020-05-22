@@ -1,64 +1,16 @@
+// @flow
 import range from "lodash/range";
+import Canvas from "./Canvas";
+import { dot, subtract } from "./vector";
+import SceneBuilder, { Sphere } from "./Scene";
 
-const canvas = document.getElementById("canvas");
-const canvasContext = canvas.getContext("2d");
-const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
-
-const scene = {
-  spheres: [
-    {
-      center: [0, -1, 3],
-      radius: 1,
-      color: [255, 0, 0], // Red
-    },
-    {
-      center: [2, 0, 4],
-      radius: 1,
-      color: [0, 0, 255], // Blue
-    },
-    {
-      center: [-2, 0, 4],
-      radius: 1,
-      color: [0, 255, 0], // Green
-    },
-  ],
-};
-
-const BACKGROUND_COLOR = [255, 255, 255];
-
-const getColorIndicesForCoord = (x, y, width) => {
-  const red = y * (width * 4) + x * 4;
-  return [red, red + 1, red + 2, red + 3];
-};
-
-function putPixel(imageData, x, y, colour) {
-  x = canvas.width / 2 + x;
-  y = canvas.height / 2 - y - 1;
-
-  if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) {
-    return;
-  }
-  const colorIndices = getColorIndicesForCoord(x, y, canvas.width);
-  const [redIndex, greenIndex, blueIndex, alphaIndex] = colorIndices;
-  imageData.data[redIndex] = colour[0];
-  imageData.data[greenIndex] = colour[1];
-  imageData.data[blueIndex] = colour[2];
-  imageData.data[alphaIndex] = 255;
-}
+const BACKGROUND_COLOUR = [255, 255, 255];
 
 function canvasToViewport(x, y, canvas) {
   const d = 1;
   const viewport = [1, 1];
   const [viewportW, viewportH] = viewport;
   return [(x * viewportW) / canvas.width, (y * viewportH) / canvas.height, d];
-}
-
-function dot(vec1, vec2) {
-  return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
-}
-
-function subtract(vec1, vec2) {
-  return [vec1[0] - vec2[0], vec1[1] - vec2[1], vec1[2] - vec2[2]];
 }
 
 // solves the ray sphere intersection
@@ -83,7 +35,7 @@ function intersectRaySphere(origin, rayDirection, sphere) {
 
 // t represents the values of the intersection solution
 // finds the colour for a given ray
-function traceRay(origin, rayDirection, Tmin, Tmax) {
+function traceRay(scene, origin, rayDirection, Tmin, Tmax) {
   let closestT = Infinity;
   let closestSphere = null;
 
@@ -102,20 +54,40 @@ function traceRay(origin, rayDirection, Tmin, Tmax) {
   }
 
   if (closestSphere == null) {
-    return BACKGROUND_COLOR;
+    return BACKGROUND_COLOUR;
   }
-  return closestSphere.color;
+  return closestSphere.colour;
 }
 
 const origin = [0, 0, 0]; // camera origin
+const canvas = new Canvas();
+const scene = new SceneBuilder()
+  .setSpheres([
+    new Sphere({
+      center: [0, -1, 3],
+      radius: 1,
+      colour: [255, 0, 0], // Red
+    }),
+    new Sphere({
+      center: [2, 0, 4],
+      radius: 1,
+      colour: [0, 0, 255], // Blue
+    }),
+    new Sphere({
+      center: [-2, 0, 4],
+      radius: 1,
+      colour: [0, 255, 0], // Green
+    }),
+  ])
+  .build();
 
 for (const x of range(-canvas.width / 2, canvas.width / 2)) {
   for (const y of range(-canvas.height / 2, canvas.height / 2)) {
     const D = canvasToViewport(x, y, canvas); // direction of ray
-    const color = traceRay(origin, D, 1, Infinity);
-    putPixel(imageData, x, y, color);
+    const colour = traceRay(scene, origin, D, 1, Infinity);
+    canvas.putPixel(x, y, colour);
   }
 }
 
 // paint generated image to canvas
-canvasContext.putImageData(imageData, 0, 0);
+canvas.putImageData(0, 0);
