@@ -31,9 +31,11 @@ class Canvas {
   }
 
   putPixel(x: number, y: number, colour: Colour) {
+    // This is to modify from top right hand side origin to a central origin.
     x = this.canvas.width / 2 + x;
     y = this.canvas.height / 2 - y - 1;
 
+    // if we are not within the bounds
     if (x < 0 || x >= this.canvas.width || y < 0 || y >= this.canvas.height) {
       return;
     }
