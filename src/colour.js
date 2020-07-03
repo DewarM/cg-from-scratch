@@ -33,4 +33,5 @@ export default class Colour {
 export const RED: Colour = Colour.fromArray([255, 0, 0]);
 export const BLUE: Colour = Colour.fromArray([0, 0, 255]);
 export const GREEN: Colour = Colour.fromArray([0, 255, 0]);
+export const YELLOW: Colour = Colour.fromArray([255, 255, 0]);
 export const WHITE: Colour = Colour.fromArray([255, 255, 255]);

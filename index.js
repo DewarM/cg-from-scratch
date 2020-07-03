@@ -3,7 +3,7 @@
 import GUI from "./src/GUI";
 import Canvas from "./src/Canvas";
 import SceneBuilder, { Sphere } from "./src/Scene";
-import { RED, BLUE, GREEN } from "./src/colour";
+import { RED, BLUE, GREEN, YELLOW } from "./src/colour";
 import Tracer from "./src/Tracer";
 import Vector from "./src/Vector";
 import {
@@ -34,6 +34,12 @@ const greenSphere = new Sphere({
   colour: GREEN,
 });
 
+const yellowSphere = new Sphere({
+  center: Vector.fromArray([-0, -5001, 0]),
+  radius: 5000,
+  colour: YELLOW,
+});
+
 const light1 = new AmbiantLight({
   intensity: 0.2,
 });
@@ -49,7 +55,7 @@ const light3 = new DirectionalLight({
 });
 
 const scene = new SceneBuilder()
-  .setSpheres([redSphere, blueSphere, greenSphere])
+  .setSpheres([redSphere, blueSphere, greenSphere, yellowSphere])
   .setLights([light1, light2, light3])
   .build();
 
