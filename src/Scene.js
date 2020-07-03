@@ -8,21 +8,30 @@ export class Sphere {
   center: Vector;
   radius: number;
   colour: Colour;
+  specular: number;
 
   constructor(
     {
       center,
       radius,
       colour,
+      specular,
     }: {
       center: Vector,
       radius: number,
       colour: Colour,
-    } = { center: Vector.fromArray([0, 0, 0]), radius: 1, colour: RED }
+      specular: number,
+    } = {
+      center: Vector.fromArray([0, 0, 0]),
+      radius: 1,
+      colour: RED,
+      specular: -1,
+    }
   ) {
     this.center = center;
     this.radius = radius;
     this.colour = colour;
+    this.specular = specular;
   }
 }
 

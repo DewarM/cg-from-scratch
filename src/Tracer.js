@@ -75,15 +75,25 @@ export default class Tracer {
     return Colour.fromVector(
       multiplyByScalar(
         Colour.toVector(closestSphere.colour),
-        this.computeLightening(point, normal)
+        this.computeLightening(
+          point,
+          normal,
+          multiplyByScalar(rayDirection, -1),
+          closestSphere.specular
+        )
       )
     );
   }
 
-  computeLightening(point: Vector, normal: Vector) {
+  computeLightening(
+    point: Vector,
+    normal: Vector,
+    cameraDirection: Vector,
+    specular: number
+  ) {
     let totalIntensity = 0;
     for (const light of this.scene.lights) {
-      totalIntensity += light.compute(point, normal);
+      totalIntensity += light.compute(point, normal, cameraDirection, specular);
     }
     return totalIntensity;
   }

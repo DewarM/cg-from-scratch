@@ -20,24 +20,28 @@ const redSphere = new Sphere({
   center: Vector.fromArray([0, -1, 3]),
   radius: 1,
   colour: RED,
+  specular: 500,
 });
 
 const blueSphere = new Sphere({
   center: Vector.fromArray([2, 0, 4]),
   radius: 1,
   colour: BLUE,
+  specular: 500,
 });
 
 const greenSphere = new Sphere({
   center: Vector.fromArray([-2, 0, 4]),
   radius: 1,
   colour: GREEN,
+  specular: 10,
 });
 
 const yellowSphere = new Sphere({
   center: Vector.fromArray([-0, -5001, 0]),
   radius: 5000,
   colour: YELLOW,
+  specular: 1000,
 });
 
 const light1 = new AmbiantLight({
