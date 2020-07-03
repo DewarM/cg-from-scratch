@@ -22,17 +22,43 @@ export default class GUI {
       const folder = speheres.addFolder(`Sphere ${i}`);
       const radiusController = folder.add(sphere, "radius", 0, 2, 0.1);
       const positionFolder = folder.addFolder("position");
-      const colourFolder = folder.addFolder("colour");
+      const materialFolder = folder.addFolder("material");
       positionFolder.open();
-      colourFolder.open();
+      materialFolder.open();
+      const colourFolder = materialFolder.addFolder("colour");
+
       const xController = positionFolder.add(sphere.center, "x", -5, 5, 1);
       const yController = positionFolder.add(sphere.center, "y", -5, 5, 1);
       const zController = positionFolder.add(sphere.center, "z", -5, 5, 1);
-      const redController = colourFolder.add(sphere.colour, "red", 0, 255);
-      const greenController = colourFolder.add(sphere.colour, "green", 0, 255);
-      const blueController = colourFolder.add(sphere.colour, "blue", 0, 255);
+
+      const specularController = materialFolder.add(
+        sphere.material,
+        "specular",
+        0,
+        1000
+      );
+
+      const redController = colourFolder.add(
+        sphere.material.colour,
+        "red",
+        0,
+        255
+      );
+      const greenController = colourFolder.add(
+        sphere.material.colour,
+        "green",
+        0,
+        255
+      );
+      const blueController = colourFolder.add(
+        sphere.material.colour,
+        "blue",
+        0,
+        255
+      );
 
       return [
+        specularController,
         radiusController,
         redController,
         greenController,

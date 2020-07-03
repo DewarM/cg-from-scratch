@@ -28,7 +28,7 @@ function specularLight(
   cameraDirection,
   specular
 ) {
-  if (specular <= -1) return 0;
+  if (specular <= 0) return 0;
   // 2*Normal*dot(Normal, LightVector) - LightVector
   const reflection = subtract(
     multiplyByScalar(multiplyByScalar(normal, 2), dot(normal, lightVector)),
