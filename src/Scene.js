@@ -1,7 +1,7 @@
 // @flow
 
 import Vector from "./Vector";
-import Colour, { RED } from "./colour";
+import Colour, { RED } from "./Colour";
 import type { Light } from "./Light";
 
 export class Sphere {

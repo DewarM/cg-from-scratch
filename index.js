@@ -3,7 +3,7 @@
 import GUI from "./src/GUI";
 import Canvas from "./src/Canvas";
 import SceneBuilder, { Sphere } from "./src/Scene";
-import { RED, BLUE, GREEN, YELLOW } from "./src/colour";
+import { RED, BLUE, GREEN, YELLOW } from "./src/Colour";
 import Tracer from "./src/Tracer";
 import Vector from "./src/Vector";
 import {

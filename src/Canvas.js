@@ -1,6 +1,6 @@
 // @flow
 
-import Colour from "./colour";
+import Colour from "./Colour";
 
 const getColorIndicesForCoord = (x, y, width) => {
   const red = y * (width * 4) + x * 4;

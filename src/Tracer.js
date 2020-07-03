@@ -11,7 +11,7 @@ import Vector, {
   normalise,
   add,
 } from "./Vector";
-import Colour, { WHITE } from "./colour";
+import Colour, { WHITE } from "./Colour";
 
 export default class Tracer {
   scene: Scene;
