@@ -3,8 +3,15 @@ import range from "lodash/range";
 
 import type { Scene } from "./Scene";
 import Canvas from "./Canvas";
-import Vector, { dot, subtract } from "./Vector";
-import { WHITE } from "./colour";
+import Vector, {
+  dot,
+  subtract,
+  multiplyByScalar,
+  length,
+  normalise,
+  add,
+} from "./Vector";
+import Colour, { WHITE } from "./colour";
 
 export default class Tracer {
   scene: Scene;
@@ -31,8 +38,8 @@ export default class Tracer {
   trace() {
     for (const x of range(-this.canvas.width / 2, this.canvas.width / 2)) {
       for (const y of range(-this.canvas.height / 2, this.canvas.height / 2)) {
-        const D = this.canvasToViewport(x, y); // direction of ray
-        const colour = this.traceRay(D, 1, Infinity);
+        const rayDirection = this.canvasToViewport(x, y);
+        const colour = this.traceRay(rayDirection, 1, Infinity);
         this.canvas.putPixel(x, y, colour);
       }
     }
@@ -63,7 +70,22 @@ export default class Tracer {
     if (closestSphere == null) {
       return WHITE;
     }
-    return closestSphere.colour;
+    const point = add(this.origin, multiplyByScalar(rayDirection, closestT)); // Compute intersection
+    let normal = normalise(subtract(point, closestSphere.center)); // Compute sphere normal at intersection
+    return Colour.fromVector(
+      multiplyByScalar(
+        Colour.toVector(closestSphere.colour),
+        this.computeLightening(point, normal)
+      )
+    );
+  }
+
+  computeLightening(point: Vector, normal: Vector) {
+    let totalIntensity = 0;
+    for (const light of this.scene.lights) {
+      totalIntensity += light.compute(point, normal);
+    }
+    return totalIntensity;
   }
 }
 

@@ -6,6 +6,12 @@ import SceneBuilder, { Sphere } from "./src/Scene";
 import { RED, BLUE, GREEN } from "./src/colour";
 import Tracer from "./src/Tracer";
 import Vector from "./src/Vector";
+import {
+  LIGHT_TYPE,
+  AmbiantLight,
+  PointLight,
+  DirectionalLight,
+} from "./src/Light";
 
 const origin = Vector.fromArray([0, 0, 0]); // camera origin
 const canvas = new Canvas();
@@ -28,8 +34,23 @@ const greenSphere = new Sphere({
   colour: GREEN,
 });
 
+const light1 = new AmbiantLight({
+  intensity: 0.2,
+});
+
+const light2 = new PointLight({
+  intensity: 0.6,
+  position: Vector.fromArray([2, 1, 0]),
+});
+
+const light3 = new DirectionalLight({
+  intensity: 0.2,
+  direction: Vector.fromArray([1, 4, 4]),
+});
+
 const scene = new SceneBuilder()
   .setSpheres([redSphere, blueSphere, greenSphere])
+  .setLights([light1, light2, light3])
   .build();
 
 const tracer = new Tracer(origin, scene, canvas);

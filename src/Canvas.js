@@ -1,6 +1,6 @@
 // @flow
 
-import type { Colour } from "./colour";
+import Colour from "./colour";
 
 const getColorIndicesForCoord = (x, y, width) => {
   const red = y * (width * 4) + x * 4;
@@ -41,9 +41,9 @@ class Canvas {
     }
     const colorIndices = getColorIndicesForCoord(x, y, this.canvas.width);
     const [redIndex, greenIndex, blueIndex, alphaIndex] = colorIndices;
-    this.imageData.data[redIndex] = colour[0];
-    this.imageData.data[greenIndex] = colour[1];
-    this.imageData.data[blueIndex] = colour[2];
+    this.imageData.data[redIndex] = colour.red;
+    this.imageData.data[greenIndex] = colour.green;
+    this.imageData.data[blueIndex] = colour.blue;
     this.imageData.data[alphaIndex] = 255;
   }
 
