@@ -74,12 +74,12 @@ export default class Tracer {
     let normal = normalise(subtract(point, closestSphere.center)); // Compute sphere normal at intersection
     return Colour.fromVector(
       multiplyByScalar(
-        Colour.toVector(closestSphere.colour),
+        Colour.toVector(closestSphere.material.colour),
         this.computeLightening(
           point,
           normal,
           multiplyByScalar(rayDirection, -1),
-          closestSphere.specular
+          closestSphere.material.specular
         )
       )
     );

@@ -2,38 +2,8 @@
 
 import Vector from "./Vector";
 import Colour, { RED } from "./Colour";
+import Sphere from "./Sphere";
 import type { Light } from "./Light";
-
-export class Sphere {
-  center: Vector;
-  radius: number;
-  colour: Colour;
-  specular: number;
-
-  constructor(
-    {
-      center,
-      radius,
-      colour,
-      specular,
-    }: {
-      center: Vector,
-      radius: number,
-      colour: Colour,
-      specular: number,
-    } = {
-      center: Vector.fromArray([0, 0, 0]),
-      radius: 1,
-      colour: RED,
-      specular: -1,
-    }
-  ) {
-    this.center = center;
-    this.radius = radius;
-    this.colour = colour;
-    this.specular = specular;
-  }
-}
 
 export type Scene = {|
   spheres: Array<Sphere>,

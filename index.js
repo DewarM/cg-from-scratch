@@ -2,7 +2,9 @@
 
 import GUI from "./src/GUI";
 import Canvas from "./src/Canvas";
-import SceneBuilder, { Sphere } from "./src/Scene";
+import SceneBuilder from "./src/Scene";
+import Sphere from "./src/Sphere";
+import Material from "./src/Material";
 import { RED, BLUE, GREEN, YELLOW } from "./src/Colour";
 import Tracer from "./src/Tracer";
 import Vector from "./src/Vector";
@@ -19,29 +21,37 @@ const canvas = new Canvas();
 const redSphere = new Sphere({
   center: Vector.fromArray([0, -1, 3]),
   radius: 1,
-  colour: RED,
-  specular: 500,
+  material: new Material({
+    colour: RED,
+    specular: 500,
+  }),
 });
 
 const blueSphere = new Sphere({
   center: Vector.fromArray([2, 0, 4]),
   radius: 1,
-  colour: BLUE,
-  specular: 500,
+  material: new Material({
+    colour: BLUE,
+    specular: 500,
+  }),
 });
 
 const greenSphere = new Sphere({
   center: Vector.fromArray([-2, 0, 4]),
   radius: 1,
-  colour: GREEN,
-  specular: 10,
+  material: new Material({
+    colour: GREEN,
+    specular: 10,
+  }),
 });
 
 const yellowSphere = new Sphere({
   center: Vector.fromArray([-0, -5001, 0]),
   radius: 5000,
-  colour: YELLOW,
-  specular: 1000,
+  material: new Material({
+    colour: YELLOW,
+    specular: 1000,
+  }),
 });
 
 const light1 = new AmbiantLight({
