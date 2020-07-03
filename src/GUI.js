@@ -5,9 +5,17 @@ import type { Scene } from "./Scene";
 import Tracer from "./Tracer";
 
 export default class GUI {
+  scene: Scene;
+  tracer: Tracer;
+
   constructor(scene: Scene, tracer: Tracer) {
+    this.scene = scene;
+    this.tracer = tracer;
+  }
+
+  initalize() {
     const gui = new dat.GUI();
-    const controllers = flatMap(scene.spheres, (sphere, i) => {
+    const controllers = flatMap(this.scene.spheres, (sphere, i) => {
       const folder = gui.addFolder(`Sphere ${i}`);
       const radiusController = folder.add(sphere, "radius", 0, 2, 0.1);
       const positionFolder = folder.addFolder("position");
@@ -26,8 +34,8 @@ export default class GUI {
     });
 
     controllers.forEach((controller) => {
-      controller.onFinishChange(function (value) {
-        tracer.trace();
+      controller.onFinishChange((value) => {
+        this.tracer.trace();
       });
     });
   }

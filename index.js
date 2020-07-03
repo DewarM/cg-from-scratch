@@ -33,7 +33,7 @@ const scene = new SceneBuilder()
   .build();
 
 const tracer = new Tracer(origin, scene, canvas);
-
 tracer.trace();
 
-new GUI(scene, tracer);
+const gui = new GUI(scene, tracer);
+gui.initalize();
