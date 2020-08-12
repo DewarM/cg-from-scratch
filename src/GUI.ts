@@ -1,9 +1,8 @@
 // @flow
 import * as dat from "dat.gui";
 import flatMap from "lodash/flatMap";
-import type { Scene } from "./Scene";
+import { Scene } from "./Scene";
 import Tracer from "./Tracer";
-import Colour from "./Colour";
 
 export default class GUI {
   scene: Scene;
