@@ -1,18 +1,6 @@
 // @flow
 import Vector, { dot, length, subtract, multiplyByScalar } from "./Vector";
 
-export const LIGHT_TYPE: {
-  AMBIANT: "AMBIANT";
-  DIRECTIONAL: "DIRECTIONAL";
-  POINT: "POINT";
-} = {
-  AMBIANT: "AMBIANT",
-  DIRECTIONAL: "DIRECTIONAL",
-  POINT: "POINT",
-};
-
-export type Light = PointLight | AmbiantLight | DirectionalLight;
-
 function diffuseLight(normal: Vector, lightVector: Vector, intensity: number) {
   const dotProduct = dot(normal, lightVector);
   if (dotProduct > 0) {
@@ -46,9 +34,25 @@ function specularLight(
   }
   return 0;
 }
+export enum LightKind {
+  AMBIANT = "AMBIANT",
+  DIRECTIONAL = "DIRECTIONAL",
+  POINT = "POINT",
+}
 
-export class PointLight {
-  type: typeof LIGHT_TYPE.POINT;
+export interface Light {
+  kind: LightKind;
+  intensity: number;
+  compute(
+    point: Vector,
+    normal: Vector,
+    cameraDirection: Vector,
+    specular: number
+  ): number;
+}
+
+export class PointLight implements Light {
+  kind: LightKind.POINT;
   intensity: number;
   position: Vector;
 
@@ -59,7 +63,7 @@ export class PointLight {
     intensity: number;
     position: Vector;
   }) {
-    this.type = LIGHT_TYPE.POINT;
+    this.kind = LightKind.POINT;
     this.intensity = intensity;
     this.position = position;
   }
@@ -84,8 +88,8 @@ export class PointLight {
   }
 }
 
-export class DirectionalLight {
-  type: typeof LIGHT_TYPE.DIRECTIONAL;
+export class DirectionalLight implements Light {
+  kind: LightKind.DIRECTIONAL;
   intensity: number;
   direction: Vector;
 
@@ -96,7 +100,7 @@ export class DirectionalLight {
     intensity: number;
     direction: Vector;
   }) {
-    this.type = LIGHT_TYPE.DIRECTIONAL;
+    this.kind = LightKind.DIRECTIONAL;
     this.intensity = intensity;
     this.direction = direction;
   }
@@ -121,12 +125,12 @@ export class DirectionalLight {
   }
 }
 
-export class AmbiantLight {
-  type: typeof LIGHT_TYPE.AMBIANT;
+export class AmbiantLight implements Light {
+  kind: LightKind.AMBIANT;
   intensity: number;
 
   constructor({ intensity }: { intensity: number }) {
-    this.type = LIGHT_TYPE.AMBIANT;
+    this.kind = LightKind.AMBIANT;
     this.intensity = intensity;
   }
 

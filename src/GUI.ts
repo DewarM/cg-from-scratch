@@ -70,7 +70,7 @@ export default class GUI {
 
     const lights = gui.addFolder("Lights");
     const lightControllers = flatMap(this.scene.lights, (light, i) => {
-      const folder = lights.addFolder(`${light.type} ${i}`);
+      const folder = lights.addFolder(`${light.kind} ${i}`);
       const intensity = folder.add(light, "intensity", 0, 1);
       return [intensity];
     });
