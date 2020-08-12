@@ -1,5 +1,3 @@
-// @flow
-
 import Sphere from "./Sphere";
 import { Light } from "./Light";
 

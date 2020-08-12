@@ -1,4 +1,3 @@
-// @flow
 export function dot(vec1: Vector, vec2: Vector): number {
   return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }

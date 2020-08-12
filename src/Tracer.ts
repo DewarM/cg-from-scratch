@@ -1,4 +1,3 @@
-// @flow
 import range from "lodash/range";
 
 import { Scene } from "./Scene";

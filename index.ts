@@ -1,5 +1,3 @@
-// @flow
-
 import GUI from "./src/GUI";
 import Canvas from "./src/Canvas";
 import SceneBuilder from "./src/Scene";
@@ -8,12 +6,7 @@ import Material from "./src/Material";
 import { RED, BLUE, GREEN, YELLOW } from "./src/Colour";
 import Tracer from "./src/Tracer";
 import Vector from "./src/Vector";
-import {
-  LIGHT_TYPE,
-  AmbiantLight,
-  PointLight,
-  DirectionalLight,
-} from "./src/Light";
+import { AmbiantLight, PointLight, DirectionalLight } from "./src/Light";
 
 const origin = Vector.fromArray([0, 0, 0]); // camera origin
 const canvas = new Canvas();

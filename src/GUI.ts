@@ -1,4 +1,3 @@
-// @flow
 import * as dat from "dat.gui";
 import flatMap from "lodash/flatMap";
 import { Scene } from "./Scene";

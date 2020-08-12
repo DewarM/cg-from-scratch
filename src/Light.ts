@@ -1,4 +1,3 @@
-// @flow
 import Vector, { dot, length, subtract, multiplyByScalar } from "./Vector";
 
 function diffuseLight(normal: Vector, lightVector: Vector, intensity: number) {

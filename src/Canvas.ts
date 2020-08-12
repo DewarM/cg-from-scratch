@@ -1,5 +1,3 @@
-// @flow
-
 import Colour from "./Colour";
 
 const getColorIndicesForCoord = (x: number, y: number, width: number) => {
