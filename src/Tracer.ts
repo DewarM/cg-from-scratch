@@ -7,7 +7,6 @@ import Vector, {
   dot,
   subtract,
   multiplyByScalar,
-  length,
   normalise,
   add,
 } from "./Vector";
