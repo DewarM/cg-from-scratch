@@ -1,5 +1,3 @@
-// @flow
-
 import Vector from "./Vector";
 import Material from "./Material";
 
@@ -13,9 +11,9 @@ export default class Sphere {
     radius,
     material,
   }: {
-    center: Vector,
-    radius: number,
-    material: Material,
+    center: Vector;
+    radius: number;
+    material: Material;
   }) {
     this.center = center;
     this.radius = radius;

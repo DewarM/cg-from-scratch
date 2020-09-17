@@ -1,13 +1,12 @@
-// @flow
 import range from "lodash/range";
 
-import type { Scene } from "./Scene";
+import { Scene } from "./Scene";
+import Sphere from "./Sphere";
 import Canvas from "./Canvas";
 import Vector, {
   dot,
   subtract,
   multiplyByScalar,
-  length,
   normalise,
   add,
 } from "./Vector";
@@ -100,7 +99,11 @@ export default class Tracer {
 }
 
 // solves the ray sphere intersection
-function intersectRaySphere(origin, rayDirection, sphere) {
+function intersectRaySphere(
+  origin: Vector,
+  rayDirection: Vector,
+  sphere: Sphere
+) {
   const C = sphere.center;
   const r = sphere.radius;
   const oc = subtract(origin, C);

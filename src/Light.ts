@@ -1,19 +1,6 @@
-// @flow
 import Vector, { dot, length, subtract, multiplyByScalar } from "./Vector";
 
-export const LIGHT_TYPE: {
-  AMBIANT: "AMBIANT",
-  DIRECTIONAL: "DIRECTIONAL",
-  POINT: "POINT",
-} = {
-  AMBIANT: "AMBIANT",
-  DIRECTIONAL: "DIRECTIONAL",
-  POINT: "POINT",
-};
-
-export type Light = PointLight | AmbiantLight | DirectionalLight;
-
-function diffuseLight(normal, lightVector, intensity) {
+function diffuseLight(normal: Vector, lightVector: Vector, intensity: number) {
   const dotProduct = dot(normal, lightVector);
   if (dotProduct > 0) {
     return (intensity * dotProduct) / (length(normal) * length(lightVector));
@@ -22,11 +9,11 @@ function diffuseLight(normal, lightVector, intensity) {
 }
 
 function specularLight(
-  normal,
-  lightVector,
-  intensity,
-  cameraDirection,
-  specular
+  normal: Vector,
+  lightVector: Vector,
+  intensity: number,
+  cameraDirection: Vector,
+  specular: number
 ) {
   if (specular <= 0) return 0;
   // 2*Normal*dot(Normal, LightVector) - LightVector
@@ -46,20 +33,36 @@ function specularLight(
   }
   return 0;
 }
+export enum LightKind {
+  AMBIANT = "AMBIANT",
+  DIRECTIONAL = "DIRECTIONAL",
+  POINT = "POINT",
+}
 
-export class PointLight {
-  type: typeof LIGHT_TYPE.POINT;
+export interface Light {
+  kind: LightKind;
+  intensity: number;
+  compute(
+    point: Vector,
+    normal: Vector,
+    cameraDirection: Vector,
+    specular: number
+  ): number;
+}
+
+export class PointLight implements Light {
+  kind: LightKind.POINT;
   intensity: number;
   position: Vector;
 
   constructor({
     intensity,
     position,
-  }: {|
-    intensity: number,
-    position: Vector,
-  |}) {
-    this.type = LIGHT_TYPE.POINT;
+  }: {
+    intensity: number;
+    position: Vector;
+  }) {
+    this.kind = LightKind.POINT;
     this.intensity = intensity;
     this.position = position;
   }
@@ -84,19 +87,19 @@ export class PointLight {
   }
 }
 
-export class DirectionalLight {
-  type: typeof LIGHT_TYPE.DIRECTIONAL;
+export class DirectionalLight implements Light {
+  kind: LightKind.DIRECTIONAL;
   intensity: number;
   direction: Vector;
 
   constructor({
     intensity,
     direction,
-  }: {|
-    intensity: number,
-    direction: Vector,
-  |}) {
-    this.type = LIGHT_TYPE.DIRECTIONAL;
+  }: {
+    intensity: number;
+    direction: Vector;
+  }) {
+    this.kind = LightKind.DIRECTIONAL;
     this.intensity = intensity;
     this.direction = direction;
   }
@@ -121,12 +124,12 @@ export class DirectionalLight {
   }
 }
 
-export class AmbiantLight {
-  type: typeof LIGHT_TYPE.AMBIANT;
+export class AmbiantLight implements Light {
+  kind: LightKind.AMBIANT;
   intensity: number;
 
-  constructor({ intensity }: {| intensity: number |}) {
-    this.type = LIGHT_TYPE.AMBIANT;
+  constructor({ intensity }: { intensity: number }) {
+    this.kind = LightKind.AMBIANT;
     this.intensity = intensity;
   }
 

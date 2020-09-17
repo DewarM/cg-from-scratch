@@ -1,8 +1,6 @@
-// @flow
-
 import Colour from "./Colour";
 
-const getColorIndicesForCoord = (x, y, width) => {
+const getColorIndicesForCoord = (x: number, y: number, width: number) => {
   const red = y * (width * 4) + x * 4;
   return [red, red + 1, red + 2, red + 3];
 };
@@ -18,6 +16,9 @@ class Canvas {
       throw new Error("Canvas: Canvas not found.");
     }
     const canvasContext = canvas.getContext("2d");
+    if (canvasContext === null) {
+      throw new Error("Canvas: CanvasContext not found.");
+    }
     const imageData = canvasContext.getImageData(
       0,
       0,
