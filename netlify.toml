@@ -7,5 +7,5 @@
 # process as we want to serve the
 # resources from a different path
 
-[context.deploy-preview.environment]
+[context.deploy-preview]
   command = "npm run build:preview-deploy"
