@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel index.html",
     "build": "parcel build index.html --public-url ./test-path/",
+    "build:preview-deploy": "parcel build index.html", 
     "tsx": "tsc"
   },
   "keywords": [],
