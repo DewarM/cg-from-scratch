@@ -9,3 +9,8 @@
 
 [context.deploy-preview]
   command = "npm run build:preview-deploy"
+
+[[redirects]]
+  from = "/"
+  to = "/cg-from-scratch
+  
