@@ -8,5 +8,4 @@
 # resources from a different path
 
 [context.deploy-preview]
-  publish = "dist/cg-from-scratch"
   command = "npm run build:preview-deploy"
